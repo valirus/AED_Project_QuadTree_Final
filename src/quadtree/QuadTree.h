@@ -5,13 +5,11 @@
 
 class QuadTree {
 public:
-    Rectangle boundary;   // La región espacial que cubre este nodo
-    int capacity;         // Máximo de partículas antes de subdividirse
+    Rectangle               boundary;
+    int                     capacity;
+    std::vector<Particle*>  particles;
+    bool                    divided = false;
 
-    std::vector<Particle*> particles;  // Partículas contenidas en este nodo
-    bool divided = false;              // Estado de subdivisión
-
-    // Punteros a los 4 cuadrantes hijos
     QuadTree* ne = nullptr;
     QuadTree* nw = nullptr;
     QuadTree* se = nullptr;
@@ -20,13 +18,19 @@ public:
     QuadTree(Rectangle boundary, int capacity);
     ~QuadTree();
 
-    // Métodos principales
+    // Operaciones principales — explicables en la defensa
     bool insert(Particle* p);
-    void subdivide();
-    void query(const Rectangle& range, std::vector<Particle*>& found, int& comparisons) const;
-    void queryCircle(float cx, float cy, float r, std::vector<Particle*>& found, int& comparisons) const;
-    
-    // Utilidades
+    void query(const Rectangle& range,
+               std::vector<Particle*>& found,
+               int& comparisons) const;
+    void queryCircle(float cx, float cy, float r,
+                     std::vector<Particle*>& found,
+                     int& comparisons) const;
     void clear();
-    void getBoundaries(std::vector<Rectangle>& rects) const;
+
+    // Para Mikael: devuelve todos los AABB del árbol actual
+    void getBoundaries(std::vector<Rectangle>& out) const;
+
+private:
+    void subdivide();
 };
