@@ -1,13 +1,15 @@
+// src/physics/Particle.h
+// Propietario: Nicolas
+// Struct puro — CERO dependencias de SFML ni de renderizado
 #pragma once
-
-// Temporarl para que pueda correr, borrar despues
 
 struct Particle {
     int    id     = 0;
-    double x      = 0.0, y  = 0.0;
-    double vx     = 0.0, vy = 0.0;
+    double x      = 0.0, y  = 0.0;   // posición
+    double vx     = 0.0, vy = 0.0;   // velocidad
     double radius = 5.0;
 
-    bool highlighted = false;
-    bool colliding   = false;
+    // Flags de estado — los lee el Renderer para decidir el color
+    bool highlighted = false;  // candidata de una query del QuadTree
+    bool colliding   = false;  // detectada en colisión este frame
 };
