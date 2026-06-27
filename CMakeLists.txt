@@ -5,17 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# ── SFML 3.0.2 via vcpkg ────────────────────────────────────────────
-# DIFERENCIA CRÍTICA vs SFML 2.x:
-#   Antes:  find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
-#           target_link_libraries(... sfml-graphics sfml-window sfml-system)
-#
-#   Ahora:  find_package(SFML 3 COMPONENTS Graphics REQUIRED)
-#           target_link_libraries(... PRIVATE SFML::Graphics)
-#   SFML::Graphics ya incluye Window y System como dependencias transitivas.
+set(SFML_DIR "C:/SFML-3.0.2/lib/cmake/SFML")
 find_package(SFML 3 COMPONENTS Graphics REQUIRED)
 
-# ── Ejecutable ───────────────────────────────────────────────────────
 add_executable(QuadTreeSim
     src/main.cpp
     src/quadtree/QuadTree.cpp
@@ -27,9 +19,10 @@ add_executable(QuadTreeSim
     src/benchmark/Benchmark.cpp
 )
 
+add_definitions(-DSFML_STATIC)
+target_link_options(QuadTreeSim PRIVATE "-Wl,--entry,mainCRTStartup")
+
 target_link_libraries(QuadTreeSim PRIVATE SFML::Graphics)
 target_include_directories(QuadTreeSim PRIVATE src)
 
-# ── Copiar assets al directorio de build ────────────────────────────
-# Asegura que font.ttf esté disponible al ejecutar desde build/
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
