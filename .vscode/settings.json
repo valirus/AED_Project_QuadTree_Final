@@ -1,6 +1,6 @@
 {
     "cmake.configureArgs": [
-        "-DSFML_DIR=C:/SFML-3.0.2/lib/cmake/SFML"
+        "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
     ],
     "cmake.buildDirectory": "${workspaceFolder}/build",
     "cmake.generator": "Ninja"

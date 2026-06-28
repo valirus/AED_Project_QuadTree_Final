@@ -1,3 +1,5 @@
+// src/rendering/HUD.h
+// Propietario: Mikael
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <string>

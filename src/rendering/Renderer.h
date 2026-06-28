@@ -1,3 +1,5 @@
+// src/rendering/Renderer.h
+// Propietario: Mikael
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../quadtree/Rectangle.h"

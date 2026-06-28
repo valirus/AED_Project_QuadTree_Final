@@ -1,3 +1,6 @@
+// src/rendering/Renderer.cpp
+// Propietario: Mikael
+// SFML 3.0.2 — usar sf::Vector2f{x, y} para posición/tamaño/origen
 #include "Renderer.h"
 
 void Renderer::drawParticles(sf::RenderTarget& target,

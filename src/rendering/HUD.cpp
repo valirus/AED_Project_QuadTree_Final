@@ -1,3 +1,6 @@
+// src/rendering/HUD.cpp
+// Propietario: Mikael
+// SFML 3.0.2 — sf::Text requiere font en el constructor
 #include "HUD.h"
 #include <sstream>
 #include <iomanip>
@@ -37,8 +40,8 @@ void HUD::draw(sf::RenderTarget& target,
        << "[Q] Grid ON/OFF\n"
        << "[B] BruteForce ON/OFF\n"
        << "[+/-] Particulas\n"
-       << "[C] Click query circulo\n"
-       << "[R] Click query rect";
+       << "[C] Modo circulo\n"
+       << "[R] Modo rectangulo";
 
     // Fondo semitransparente
     sf::RectangleShape bg({270.f, 380.f});

@@ -1,3 +1,6 @@
+// src/benchmark/Benchmark.h
+// Propietario: Mikael
+// Sin dependencias de SFML — mide tiempos con std::chrono
 #pragma once
 #include <chrono>
 #include <string>
@@ -6,7 +9,7 @@
 #include <fstream>
 #include <iomanip>
 
-// ─── Timer  ───────────────────────────────────────────────────────────
+// ─── Timer de alta resolución ───────────────────────────────────────
 class Timer {
     using Clock = std::chrono::high_resolution_clock;
     std::chrono::time_point<Clock> t0;
@@ -20,13 +23,13 @@ public:
 // ─── Resultado de un experimento completo ───────────────────────────
 struct BenchResult {
     int         n;
-    std::string distribution;
-    float       buildMs;
-    float       qtQueryMs;
-    float       bfMs;
-    int         qtComparisons;
-    int         bfComparisons;
-    float       candidatesPerParticle;
+    std::string distribution;   // "Uniforme", "Clusters", "Zona Densa"
+    float       buildMs;        // tiempo de reconstrucción del QT
+    float       qtQueryMs;      // tiempo promedio de consulta con QT
+    float       bfMs;           // tiempo de BruteForce
+    long long   qtComparisons;  // comparaciones promedio QT
+    long long   bfComparisons;  // comparaciones BF = n*(n-1)/2
+    float       candidatesPerParticle;  // MÉTRICA RÚBRICA: candidatos/partícula
     int         collisions;
 };
 
@@ -52,7 +55,7 @@ public:
                   << std::setw(10) << "Cand/P"
                   << "\n";
         for (auto& r : results) {
-            float speedup = r.bfMs > 0 ? r.bfMs / r.qtQueryMs : 0.f;
+            float speedup = (r.bfMs > 0 && r.qtQueryMs > 0.001f) ? r.bfMs / r.qtQueryMs : 0.f;
             std::cout << std::setw(8)  << r.n
                       << std::setw(12) << r.distribution
                       << std::setw(10) << r.buildMs
@@ -72,7 +75,7 @@ public:
         f << "n,distribution,buildMs,qtQueryMs,bfMs,speedup,qtComparisons,"
              "bfComparisons,candidatesPerParticle,collisions\n";
         for (auto& r : results) {
-            float sp = r.bfMs > 0 ? r.bfMs / r.qtQueryMs : 0.f;
+            float sp = (r.bfMs > 0 && r.qtQueryMs > 0.001f) ? r.bfMs / r.qtQueryMs : 0.f;
             f << r.n << "," << r.distribution << ","
               << r.buildMs << "," << r.qtQueryMs << "," << r.bfMs << ","
               << sp << "," << r.qtComparisons << "," << r.bfComparisons << ","
