@@ -1,5 +1,14 @@
 # QuadTree Particle Simulator - CS2023 AED
 
+## Integrantes
+
+- Mikael Quinto Ramos
+- Guillermo Valentino Ceceu Gamboa Sánchez
+- Pedro Nicolás Solís Córdova
+
+**Sección:** 3
+
+
 Repositorio: https://github.com/valirus/AED_Project_QuadTree_Final
 
 Proyecto final elegido: **Opción A - QuadTree, simulador de partículas 2D**.
